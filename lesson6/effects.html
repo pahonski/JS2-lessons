@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Effects</title>
+  <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/all.css">
+  <link rel="stylesheet" href="bower_components/jquery-ui/themes/swanky-purse/jquery-ui.min.css">
+  <link rel="stylesheet" href="bower_components/jquery-ui/themes/swanky-purse/theme.css">
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <script src="bower_components/jquery-ui/ui/i18n/datepicker-ru.js"></script>
+
+  <script>
+
+    $(window).ready(function () {
+        $('#btn1').on('click', function () {
+            $('#test').hide($('#effect').val(), {}, 3000)
+        });
+
+        $('#btn2').on('click', function () {
+            $('#test').show($('#effect').val(), {}, 3000)
+        });
+        $('#btn3').on('click', function () {
+            $('#test').effect($('#effect').val(), {}, 3000)
+        })
+    });
+
+  </script>
+
+</head>
+<body>
+<div id="test" class="ui-widget ui-widget-content">
+  <h2>Текстовый блок</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur, beatae cum eaque explicabo non. A at aut culpa dolor fugit ipsum labore natus nihil numquam soluta, tempora, ut velit!</p>
+
+</div>
+<br>
+<label>
+  Выберите эффект из списка:
+  <select name="effect" id="effect">
+    <option value="blind">Ослепление</option>
+    <option value="bounce">Подпрыгивание</option>
+    <option value="clip">Обрезание</option>
+    <option value="drop">Падение</option>
+    <option value="explode">Взрыв</option>
+    <option value="fade">Bсчезновение</option>
+    <option value="fold">Складывание</option>
+    <option value="highlight">Подсветка</option>
+    <option value="puff">Рассеивание</option>
+    <option value="pulsate">Пульсирование</option>
+    <option value="shake">Тряска</option>
+    <option value="slide">Выскальзывание</option>
+  </select>
+</label>
+<p>Выберите действие:</p>
+<input type="button" id="btn1" value="Скрыть Элемент">
+<input type="button" id="btn2" value="Показать Элемент">
+<input type="button" id="btn3" value="Показать Эффект">
+</body>
+</html>
