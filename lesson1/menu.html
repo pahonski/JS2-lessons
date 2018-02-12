@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <script src="js/Container.js"></script>
+    <script src="js/Menu.js"></script>
+    <script src="js/Sybmenu.js"></script>
+    <script src="js/MenuItem.js"></script>
+    <script>
+        window.onload = function () {
+            var menu1 = new Menu('my', 'my', [
+                new MenuItem('/', 'Главная страница'),
+                new MenuItem('/about', 'О нас'),
+                new MenuItem('/service', 'Услуги'),
+                new MenuItem('/contacts', 'Контакты'),
+                new MenuItem('/blog', 'Блог'),
+                new Submenu()
+            ]);
+
+            var menuApp = document.getElementById('menu1');
+            menuApp.innerHTML = menu1.render();
+        };
+
+    </script>
+</head>
+<body>
+<div id="menu1"></div>
+</body>
+</html>

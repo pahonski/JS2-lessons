@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <script>
+      //AJAX
+      //Асинхронные запросы
+      window.onload = function () {
+          var root = document.getElementById('root');
+          var btn1 = document.getElementById('btn1');
+
+
+          btn1.addEventListener('click', function () {
+              var xhr = new XMLHttpRequest();
+              xhr.open('GET', './tel.json', true);
+
+              xhr.onreadystatechange = function () {
+                  console.log(xhr.readyState);
+                if (xhr.readyState !== 4) {return}
+
+                  if (xhr.status !== 200) {
+                      console.log('Error', xhr.status, xhr.statusText);
+                  } else {
+                      console.log('ok', xhr.responseText);
+                      var myItems = JSON.parse(xhr.responseText);
+                      console.log(myItems);
+
+                      var newTelElement = document.createElement('div');
+                      newTelElement.textContent = myItems.number;
+                      var newDescElement = document.createElement('div');
+                      newDescElement.textContent = myItems.description;
+
+                      root.appendChild(newTelElement);
+                      root.appendChild(newDescElement);
+                  }
+
+              };
+
+              xhr.send();
+
+
+
+          });
+
+
+      };
+  </script>
+</head>
+<body>
+
+
+<div id="root"></div>
+<button id="btn1">Получить номер телефона</button>
+</body>
+</html>

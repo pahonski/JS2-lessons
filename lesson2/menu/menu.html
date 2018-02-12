@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <script src="js/Container.js"></script>
+    <script src="js/Menu.js"></script>
+    <script src="js/Submenu.js"></script>
+    <script src="js/MenuItem.js"></script>
+    <script>
+        window.onload = function () {
+
+            document.getElementById('btn1').addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', './items.json', true);
+
+                xhr.onreadystatechange = function () {
+                    console.log(xhr.readyState);
+                    if (xhr.readyState !== 4) {
+                        return
+                    }
+
+                    if (xhr.status === 200) {
+                        showMenu(JSON.parse(xhr.responseText));
+                    } else {
+                        console.log('error', xhr.status, xhr.statusText);
+                    }
+                };
+
+                xhr.send();
+            });
+
+            function showMenu(items) {
+                //console.log(items);
+
+                var itemsMenuItem = [];
+
+                for (var i = 0; i < items.length; i++) {
+                    itemsMenuItem.push(new MenuItem(items[i].href, items[i].title));
+                }
+
+                var menu = new Menu('class', itemsMenuItem);
+
+                document.getElementById('menu').innerHTML = menu.render();
+
+                document.getElementById('button').onclick = function () {
+                    menu.remove();
+                };
+
+                document.getElementById('remove').onclick = function () {
+                    document.getElementById('menu').innerHTML = menu.render();
+                }
+            }
+
+
+
+
+        };
+
+        console.log(itemsMenuItem);
+
+    </script>
+</head>
+<body>
+<div id="menu">
+
+</div>
+<button type="button" id="button">Удалить меню</button>
+<button type="button" id="remove">Восстановить меню</button>
+<button id="btn1">Получить пункты меню, и отрисоватьменю</button>
+
+
+</body>
+</html>

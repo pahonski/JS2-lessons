@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON/AJAX</title>
+
+
+
+</head>
+<body>
+<script>
+    var userJson = '{"name": "Anna", "age": 25, "isMail": false}';
+    var user = JSON.parse(userJson);
+
+
+    user.friends = [
+        "Olga",
+        'Ilya',
+        "Viktor"
+    ];
+
+    user.address = {
+        city: 'Moscow',
+        postalCode: '000000',
+        street: 'Novaya Street'
+    };
+
+    user.date = '2017-12-14';
+
+
+    var jsonFromUser = JSON.stringify(user, null, '    ');
+    console.log(jsonFromUser);
+
+    var user2 = JSON.parse(jsonFromUser, function (key, value) {
+        console.log('!' + key + '=>>' + value);
+
+        switch (key) {
+            case 'date': value = new Date(value); break;
+        }
+
+        return value;
+    });
+
+  console.log(user2);
+  console.log(user2.date.getDate()+ '.' + (user2.date.getMonth()+1) +'.'+user2.date.getFullYear());
+
+
+  //AJAX
+  //Синхронные запросы
+    window.onload = function () {
+        var root = document.getElementById('root');
+        var btn1 = document.getElementById('btn1');
+
+
+        btn1.addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './tel.json', false);
+            xhr.send();
+            if (xhr.status !== 200) {
+                console.log('Error', xhr.status, xhr.statusText);
+            } else {
+                console.log('ok', xhr.responseText);
+                var myItems = JSON.parse(xhr.responseText);
+                console.log(myItems);
+
+                var newTelElement = document.createElement('div');
+                newTelElement.textContent = myItems.number;
+                var newDescElement = document.createElement('div');
+                newDescElement.textContent = myItems.description;
+
+                root.appendChild(newTelElement);
+                root.appendChild(newDescElement);
+            }
+        });
+
+    };
+
+
+</script>
+
+<div id="root"></div>
+<button id="btn1">Получить номер телефона</button>
+</body>
+</html>
