@@ -1,0 +1,42 @@
+.tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tab {
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: #61AF6A;
+    border: 1px solid #7DCA86;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: none;
+}
+
+.tab:hover {
+    cursor: pointer;
+}
+
+.tabActive {
+    color: black;
+    border-bottom: none;
+    background-color: #FFFFFF;
+}
+
+.content {
+    width: 650px;
+    padding: 15px;
+    margin: -1px;
+    border: 1px solid #7DCA86;
+    z-index: 10;
+}
+
+.contentBlock {
+    display: none;
+}
+
+.contentActive {
+    display: block;
+}

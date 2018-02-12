@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Интеграция в сайт</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/Container.js"></script>
+  <script src="js/Goods.js"></script>
+  <script src="js/Basket.js"></script>
+  <script>
+      $(document).ready(function () {
+          var good1 = new Good(125, 'Клавиатура для ПК', 1000);
+          good1.render($('#goods'));
+
+          var good2 = new Good(332, 'Клавиатура для мыши', 800);
+          good2.render($('#goods'));
+
+          var basket = new Basket('basket');
+          basket.render($('#basket-wrap'));
+          console.log(basket.basketItems);
+
+          $('.buy_good').on('click', function () {
+              var idProduct = parseInt($(this).attr('data-id'));
+              var price = parseInt($(this).parent().find('.product-price').text());
+              console.log(price);
+              basket.add(idProduct, price);
+          });
+
+          //Показ и скрытие корзины при клике
+          $('#basket_link').on('click', function () {
+              $('#basket-wrap').fadeToggle(1000);
+          })
+      });
+  </script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <div id="basket-wrap"></div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="basket_link">Корзина</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Добро пожаловать в интернет-магазин</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aut dolor doloribus ducimus incidunt
+        inventore, minus necessitatibus non officia quidem saepe sapiente, sint unde? Dolorum, esse sint. Magni numquam,
+        sunt.</p>
+      <p>Asperiores atque corporis eius iure laborum, laudantium maxime optio quia quisquam quo rem tempore ut
+        voluptates. Animi eum mollitia quidem. Beatae expedita laborum nemo perspiciatis provident qui quisquam vel
+        velit.</p>
+      <p>Molestiae nam provident totam veritatis? Ab aspernatur, atque distinctio eius eos et eum eveniet laboriosam
+        molestiae molestias nam necessitatibus nisi odio possimus quae quos sed sint tempore totam voluptatibus
+        voluptatum.</p>
+      <p>Amet asperiores atque aut autem beatae blanditiis cum dolore dolorum eaque earum eius enim est eum facilis hic,
+        iure iusto laborum magni mollitia nam pariatur perferendis qui quisquam totam veniam.</p>
+      <p>At, doloremque in laborum natus neque perspiciatis veniam voluptatibus. Aliquid labore neque officiis velit?
+        Architecto consequatur, culpa delectus et, maiores odio possimus quibusdam quisquam repellat reprehenderit rerum
+        tenetur velit voluptate?</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="goods"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      &copy 2017
+    </div>
+  </div>
+</div>
+<style>
+  .good {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid black;
+  }
+
+  #basket-wrap {
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    right: 0;
+    top: 60px;
+    overflow: hidden;
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+  }
+</style>
+</body>
+</html>

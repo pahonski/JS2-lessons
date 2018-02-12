@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $slides = $('.slider .slide');
+            var $btnLeft = $('#btnLeft');
+            var $btnRight = $('#btnRight');
+            var ACTIVE_CLASS = 'active';
+            var TIME = 1000;
+
+            $slides.not('.' + ACTIVE_CLASS).hide();
+
+            $btnLeft.on('click', function () {
+                if ($slides.filter('.' + ACTIVE_CLASS).prev().hasClass('slide')) {
+                    $slides.filter('.' + ACTIVE_CLASS).removeClass(ACTIVE_CLASS)
+                        .slideUp(TIME)
+                        .prev()
+                        .addClass(ACTIVE_CLASS)
+                        .slideDown(TIME);
+                } else {
+                    console.log('No slides');
+                }
+            });
+
+            $btnRight.on('click', function () {
+                if ($slides.filter('.' + ACTIVE_CLASS).next().hasClass('slide')) {
+                    $slides.filter('.' + ACTIVE_CLASS).removeClass(ACTIVE_CLASS)
+                        .slideUp(TIME)
+                        .next()
+                        .addClass(ACTIVE_CLASS)
+                        .slideDown(TIME);
+                } else {
+                    console.log('No slides');
+                }
+            });
+
+        })
+    </script>
+</head>
+<body>
+<div class="slider">
+    <div class="slide">
+        <img src="img/1.jpg" alt="slide 1" width="1250">
+    </div>
+    <div class="slide active">
+        <img src="img/2.jpg" alt="slide 2" width="1250">
+    </div>
+    <div class="slide">
+        <img src="img/3.jpg" alt="slide 3" width="1250">
+    </div>
+    <div class="slide">
+        <img src="img/4.jpg" alt="slide 4" width="1250">
+    </div>
+</div>
+<button id="btnLeft">Влево</button>
+<button id="btnRight">Вправо</button>
+</body>
+</html>

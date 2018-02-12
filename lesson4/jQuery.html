@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script>
+        console.log(jQuery, $);
+        $(document).ready(function () {
+            $('p').css('color', 'lime').addClass('myP');
+            $('.p1').css({
+                color: 'orange',
+                fontSize: '25px',
+                MozBorderRadius: '10px'
+            });
+            console.log($('#p2').text());//textContent (innerText)
+            console.log($('#p2').html());//innerHTML
+
+            //Перебор выбранных элементов
+            $('p').each(function (index, item) {
+                console.log(jQuery, item);
+                //item.classList.add('big');//JS
+                $(item).addClass('big');//jQuery
+            });
+
+            //Выбор определенного элемента
+            $('p:eq(1)').css('color', 'black');
+
+            //Cобытия
+
+            $('.btn1').on('click', function () {//Аналог addEventListener
+                console.log(this);
+                var $btn = $(this);//Обертка для преобразования обычного элемента к коллекции
+                $btn.text('Новая кнопка').css({
+                    color: 'red',
+                    backgroundColor: 'lightgrey'
+                });
+            });
+
+            //
+
+            var $sl1 = $('.sl1');
+            $('.btn2').on('click', function () {
+                //$sl1.toggle();
+
+                //Со сдвигом
+                //$sl1.slideUp(3000);//скрыть
+                //$sl1.slideDown(3000);//Показать
+                //$sl1.slideToggle(3000)//Скрыть, показать
+
+                //С изменением прозрачности
+                //$sl1.fadeIn(2000);
+                //$sl1.fadeOut(2000);
+                $sl1.fadeToggle(2000);
+            });
+
+            //Изменение прозрачности
+            var $inputOpacity = $('#opacity');
+            $('#btn3').on('click', function () {
+                var opacity = $inputOpacity.val();
+                $sl1.fadeTo(2000, opacity);
+            });
+
+
+            //AJAX
+            var $ajaxData = $('.ajaxData');
+            $('.ajax').on('click', function () {
+                $.ajax({
+                    type: "GET",
+                    url: "./tel.json",
+                    //async: false //Синхронный запрос true по умолчанию
+                    success: function (data) {
+                        $ajaxData.text(data.tel);
+                    },
+                    dataType: 'json'
+                })
+            })
+
+
+
+        });
+    </script>
+    <style>
+        .big {
+            font-size: 45px;
+        }
+    </style>
+</head>
+<body>
+<p class="p1">
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    Aenean commodo ligula eget dolor.
+</p>
+<p class="p1">
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    Aenean commodo ligula eget dolor.
+</p>
+<p id="p2">
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    Aenean commodo ligula eget dolor.
+</p>
+<p>
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    Aenean commodo ligula eget dolor.
+</p>
+<p>
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    Aenean commodo ligula eget dolor.
+</p>
+
+<hr>
+
+<div class="sl1">
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+    Aenean commodo ligula eget dolor.
+</div>
+<button class="btn2">Скрыть элемент</button>
+<label for="opacity">Прозрачность элемента</label>
+<input id="opacity" type="number" min="0" max="1" step="0.1">
+<button id="btn3">Изменить прозрачность</button>
+<button class="btn1">Кнопка</button>
+
+<hr>
+
+<h1>AJAX</h1>
+<div class="ajaxData"></div>
+<button class="ajax">Получить телефон</button>
+</body>
+</html>
