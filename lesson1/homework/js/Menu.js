@@ -15,12 +15,12 @@ Menu.prototype.render = function () {
 	for (var i = 0; i < this.items.length; i++) {
         //Посмотреть, а Submenu ли это     
         if (this.items[i] instanceof SubMenuItem) {
-            if (stage == false) { result += resultconstruct; stage = true; }
+            if (stage === false) { result += resultconstruct; stage = true; }
             result += this.items[i].render() + '</li>';
 			console.log('Экземпляр SubMenuItem');
 		}
         if (this.items[i] instanceof MenuItem) {
-            if (stage == true) {
+            if (stage === true) {
                 result += '</ul></li>'; stage = false;} 
 			if (i) {
                 result += '</li>';
@@ -29,7 +29,7 @@ Menu.prototype.render = function () {
 			console.log('Экземпляр MenuItem');
         }
     }
-    if (stage == true) { result += '</ul>'; stage = false; }
+    if (stage === true) { result += '</ul>'; stage = false; }
     result += '</li></ul>';
 	
 	this.htmlCode = result; //Сохраняем HTML-код меню

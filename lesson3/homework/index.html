@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #output-format {
+      margin-bottom: 25px;
+    }
+
+    input {
+      margin-bottom: 15px;
+    }
+  </style>
+
+</head>
+<body>
+<h1>ДЗ номер 3</h1>
+<h2>Задание 1</h2>
+<textarea name="basic-format" id="basic-format" cols="30" rows="10"></textarea><br>
+<button type="button" id="format-btn">Заменить все (') на (")</button>
+<div id="output-format">
+
+</div>
+  <label for="name">Ваше Имя:
+    <input type="text" id="name" placeholder="Павел"><br>
+  </label>
+  <label for="surname">Ваша Фамилия:</label>
+  <input type="text" id="surname" placeholder="Кузнецов"><br>
+  <label for="tel">Ваш номер телефона:</label>
+  <input type="text" id="tel" placeholder="+375(29)333-33-33"><br>
+  <label for="message">Введите ваше сообщение:</label><br>
+  <textarea name="message" id="message" cols="30" rows="10"></textarea><br>
+  <button type="button" id="btn">Отправить</button>
+
+
+<script>
+    document.getElementById('format-btn').onclick = function () {
+        var basicText = document.getElementById('basic-format').value;
+        var formatText = basicText.replace(/\s'|'\s/gi, changeQuotes);
+
+        function changeQuotes(str) {
+            //console.log(str);
+            var result = '';
+            if(str === ' \'') {result = ' "'}
+            if(str === '\' ') {result = '" '}
+            return result
+
+
+        }
+
+        console.log(formatText);
+        document.getElementById('output-format').innerText = formatText;
+    };
+
+
+    document.getElementById('btn').onclick = function () {
+
+        var cleanErrors = document.querySelectorAll('span');
+        cleanErrors.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+
+        var inputs = document.querySelectorAll('input');
+
+
+        inputs.forEach(function (item) {
+            var regExpName = item.value.match(/[а-яА-ЯёЁ]+/);
+            var regExpNumber = item.value.match(/\+375\(\d\d\)\d{3}-\d{2}-\d{2}|\+375\d{9}/);
+          if (item.value !== '') {
+              switch (item.id) {
+                  case 'name':
+                      if (regExpName !== null) {
+                          item.style.borderColor = 'green';
+                          item.value = item.value.charAt(0).toUpperCase() + item.value.substr(1).toLowerCase();
+                      } else {
+                          item.style.borderColor = 'red';
+                          getError(item);
+
+                      }
+                      break;
+                  case 'surname':
+                      if (regExpName !== null) {
+                          item.style.borderColor = 'green';
+                          item.value = item.value.charAt(0).toUpperCase() + item.value.substr(1).toLowerCase();
+                      } else {
+                          item.style.borderColor = 'red';
+                          getError(item);
+
+                      }
+                      break;
+                  case 'tel': console.log('tel'); break;
+              }
+          }
+
+        });
+
+
+
+
+
+
+        function errors(input) {
+
+            console.log(regExpNumber);
+
+
+
+            if (input.value.charAt(0) === '+') {
+                console.log('Верно');
+                if (regExpNumber !== null) {
+                    input.style.borderColor = 'green';
+                    console.log('Верно');
+                } else {
+                    input.style.borderColor = 'red';
+                    getError(input);
+                }
+            } else {
+                if (regExpName !== null) {
+                    input.style.borderColor = 'green';
+                    input.value = input.value.charAt(0).toUpperCase() + input.value.substr(1).toLowerCase();
+                } else {
+                    input.style.borderColor = 'red';
+                    getError(input);
+
+                }
+            }
+
+
+            }
+
+
+
+
+            function getError(input) {
+                var error = document.createElement('span');
+                error.innerText = 'Данные введены не верно';
+                error.style.color = 'red';
+                input.parentNode.insertBefore(error, input.nextElementSibling);
+            }
+
+
+
+
+
+    };
+</script>
+</body>
+</html>

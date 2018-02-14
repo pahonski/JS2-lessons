@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp</title>
+    <script>
+        //Синтаксис 1
+        //Для динамических выражений (Выражение получено AJAX)
+        //var regExp = new regExp('Регулярное выражение без разделителей', 'Флаги');
+        //var regExp = new regExp('Регулярное выражение без разделителей', 'ig');
+
+        //Флаги
+        //i - поиск по регулярному выражению без учёта регистра
+        //g - множественный поиск
+        //m - множественный поиск - Строка1\nСтрока2 строки обрабатываются по отдельности
+
+        //Синтаксис 2
+        //Используется, когда выражение известно заранее
+        // /Регулярное выражение/Флаги
+
+
+        var regExp1 = new RegExp('java', 'i');
+        var str = 'Язык JavaScript входит в 10-ку самых востребованных ЯП. Язык Java ТОП-3';
+
+        //Ищет первое соответствие вхождения в строку регулярному выражению
+        //Возвращает позицию первого вхождения или -1 если не найден.
+        //Не принимает флан g
+        //console.log(str.search(regExp1));
+
+
+        //Match зависит от флага g
+        //Метод предоставляет доп инфо
+        //Если ничего не найдено возвращает null
+        var find1 = str.match(/java/i);//если надо найти первое вхождение (i)
+        //console.log(find1, find1[0], find1.index, find1.input);
+        var find2 = str.match(/java/);
+        //console.log(find2);
+
+        //Match с флагом -g
+        //нет дополнительной инфы, только кол-во найденных элементов
+        //console.log(str.match(/java/ig))
+        console.log('--------replace--------');
+        //Замена с использованием RegEx
+        console.log('aaa-bbb-ccc-ddd'.replace('-', ':')); //Только 1 заменил
+        console.log('aaa-bbb-ccc-ddd'.replace(/-/, ':')); //Только 1 заменил
+        console.log('aaa-bbb-ccc-ddd'.replace(/-/g, ':')); //Заменил все
+
+        var i = 0;
+        var funcExp = function (str, offset, string) { //Возврат 2 аргумента от replace//1.то что найдено, 2.на какой позиции, 3.в какой строке
+            console.log('Найдено:' , str, 'на позиции', offset, 'в строке', string);
+            i++;
+            return ':' + i +':';
+        };
+        //Добавляем функционала, вместо 2 аргумента ставим функцию
+        console.log('aaa-bbb-ccc-ddd'.replace(/-/g, funcExp));
+
+        //Со стороны регулярного выражения
+        //test
+        //exec
+        console.log('--------test--------');
+        //test - соответствует ли строка регулярному выражению (идеал для валидации)
+        //Возвращает только boolean
+        console.log(/java/i.test(str)); //true
+        console.log(/java/.test(str)); //false
+
+        //exec
+        //Без флага -g метод является аналогом метода str.match()
+        //console.log(/java/i.exec(str));
+        console.log('--------exec -g--------');
+        //Если флаг -g есть
+        //Вся работа с флагом g осуществляется в цикле while
+        //Если не поставить g браузер ляжет
+        var regExp2 = /java/ig;//обязательно нужна переменная
+        var result;
+        console.log('Начальный LastIndex', regExp2.lastIndex);
+
+        while(result = regExp2.exec(str)){
+            console.log(result);
+            console.log('Текущий LastIndex', regExp2.lastIndex);
+        }
+        console.log('Конечный LastIndex', regExp2.lastIndex);
+
+
+        //Регулярные выражения
+        //Классы и спец символы
+        //Наборы и диапазоны
+        //Квантификаторы
+        //^$
+
+        //Классы
+        // \d - [0-9] - [0123456789] - цифры
+        // \s - пробел
+        // \w - [a-zA-Z0-9] - буквы //кириллицу нельзя, нужно писать через диапазон
+        // \b - граница слова
+
+        //Отрицание аналог (!)
+        // \D - не /d - [^0-9] - [^0123456789] - всё кроме цифр
+        // \S - все кроме пробелов
+        // \W - все кроме букв
+        // \B - все кроме границы слова
+
+        console.log('Мы изучаем JS, есть еще HTML5'.match(/\w\w\w\w\d/ig));
+        console.log('Мы изучаем JS, есть еще HTML5'.match(/\w{4}\d/ig));//Использовали квантификатор {} тут аналог *4/х4/4 раза
+        console.log('Мы изучаем JS, есть еще CSS3 и HTML5'.match(/\w{3}\d/ig));//Тут попал tml5, в след примере добавим границу слова
+        console.log('Мы изучаем JS, есть еще CSS3 и HTML5'.match(/\b\w{3}\d/ig));//Тут с границей
+
+        //Спецсимволы
+        //. [] \ $ ^ ? * + |
+        // . - точка проверяет на любой символ
+        console.log('Пункт 7.2'.match(/\d\.\d/)); // Ищем именно точку
+        console.log('Пункт 7d2'.match(/\d.\d/));  //Ищем любой символ на месте точки
+
+        //Наборы
+        //[абвгд....]
+        console.log('Топ Гоп Воп'.match(/[гт]оп/ig));///Найдено топ и гоп
+
+        //Диапазоны
+        //[а-яёА-ЯЁ] - Кириллический набор
+        console.log('Exceptions 0xA4, 0xASDS, 0xFC'.match(/0x[0-9A-F]{2}/g));
+
+
+        //Квантификаторы
+        //{m} - число повторений равно m
+        //{m,n} - число повторений от m до n включительно
+        //{m,} - число повторений от m включительное и более
+        //{,n} - число повторений от 0 до n включительно
+        //Сокращения
+        //+ - 1 и более раз эквивалент {1,}
+        //* - {0,}
+        //? - {0,1}
+
+        console.log('+7 (000) 324-23-25'.match(/\d+/gi).join(''));//join для склейки массива в строку
+
+
+        console.log('color colour colotr'.match(/colou?r/ig));
+        console.log('color colour colotr'.match(/colo[ut]?r/ig));
+
+        //Начало (^) и конец ($) строки
+        console.log(str.match(/^java/ig));//Строка начинается с Язык
+        //Аналог с тест
+        console.log(/^java/ig.test(str));
+        console.log(/^Язык/ig.test(str));
+
+
+
+        console.log(/ТОП-3$/ig.test(str));
+        console.log(/java$/ig.test(str));
+
+
+        console.log(/^Язык.+ТОП-3$/ig.test(str));
+
+        console.log('java'.match(/^(java|js)/));
+        console.log('js'.match(/^(java|js)/));
+        console.log('');
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
