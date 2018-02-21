@@ -1,0 +1,1 @@
+function message(s){console.log("message text",s)}message("Hi"),message("asdads");

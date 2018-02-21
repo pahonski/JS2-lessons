@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    window.onload = function () {
+       var str = 'Язык JavaScript входит в 10-ку самых востребованных ЯП. Язык Java ТОП-3.';
+       var regExp = new RegExp('java','i');
+        console.log(str.search(regExp));
+        console.log(str.match(regExp));
+    }
+</script>
+</body>
+</html>
