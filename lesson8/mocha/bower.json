@@ -1,0 +1,15 @@
+{
+  "name": "Jasmine",
+  "homepage": "https://github.com/pahonski/JS2-lessons",
+  "authors": [
+    "Pavlo"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "mocha": "^3.4.2",
+    "chai": "^4.0.2"
+  }
+}

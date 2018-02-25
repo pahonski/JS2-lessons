@@ -1,0 +1,14 @@
+{
+  "name": "Jasmine",
+  "homepage": "https://github.com/pahonski/JS2-lessons",
+  "authors": [
+    "Pavlo"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jasmine-core": "^3.0.0"
+  }
+}
